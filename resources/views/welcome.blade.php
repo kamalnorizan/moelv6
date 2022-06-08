@@ -81,11 +81,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
+                    @auth
                     Laravel
+                    @else
+                    Test
+                    @endauth
                 </div>
 
                 <div class="links">
+                    @guest
                     <a href="https://laravel.com/docs">Docs</a>
+                    @endguest
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://blog.laravel.com">Blog</a>

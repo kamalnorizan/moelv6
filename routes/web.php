@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +18,9 @@ DB::listen(function ($event) {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/post', 'PostController@index')->name('post.index');
