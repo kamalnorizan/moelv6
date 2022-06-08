@@ -12,7 +12,8 @@
         "fideloper/proxy": "^4.4",
         "laravel/framework": "^6.20.26",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "*"
+        "laravel/ui": "*",
+        "yajra/laravel-datatables-oracle": "9.*"
     },
     "require-dev": {
         "facade/ignition": "^1.16.15",

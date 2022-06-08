@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
-
+use DataTables;
 class PostController extends Controller
 {
     /**
@@ -17,6 +17,29 @@ class PostController extends Controller
         $posts = Post::with('user','comments.user')->get(); //eager loading
         // $posts = Post::all(); //lazy loading
         return view('post.index',compact('posts'));
+    }
+
+    public function ajaxLoadPostTable(Request $request)
+    {
+        $posts = Post::with('user');
+
+        return Datatables::of($posts)
+        ->addIndexColumn()
+        ->addColumn('author',function (Post $post){
+            $author = $post->user->name;
+            return $author;
+        })
+        ->addColumn('comments',function (Post $post){
+            $options = '';
+            foreach ($post->comments as $key => $comment) {
+                $options .= '<option value="'.$comment->id.'">'.$comment->content.'</option>';
+            }
+            $dropdown = '<select name="test" id="test" class="form-control ddcomment">'.$options.'</select>';
+
+            return $dropdown;
+        })
+        ->rawColumns(['author','comments'])
+        ->make(true);
     }
 
     /**
