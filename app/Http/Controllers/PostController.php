@@ -14,7 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all(); //lazy loading
+        $posts = Post::with('user','comments.user')->get(); //eager loading
+        // $posts = Post::all(); //lazy loading
         return view('post.index',compact('posts'));
     }
 

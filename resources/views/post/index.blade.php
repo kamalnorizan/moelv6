@@ -18,7 +18,11 @@
                         <tr>
                             <td>{{$post->content}}</td>
                             <td>{{$post->user->name}}</td>
-                            <td>{{$post->comments->count()}}</td>
+                            <td>
+                                @foreach ($post->comments as $comment)
+                                    {{$comment->user->name}}<br>
+                                @endforeach
+                            </td>
                             <td></td>
                         </tr>
                         @endforeach
