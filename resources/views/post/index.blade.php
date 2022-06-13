@@ -9,8 +9,6 @@
             <div class="card">
                 <div class="card-header">Posts</div>
                 <div class="card-body">
-
-
                     <table class="table" id="postsTbl">
                         <thead>
                             <tr>
@@ -32,7 +30,6 @@
 @section('script')
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
-
         $('#postsTbl').DataTable({
             "processing": true,
             "serverSide": true,
@@ -46,7 +43,7 @@
               { "data": "content" },
               { "data": "author" },
               { "data": "comments" },
-              { "data": "updated_at" }
+              { "data": "actions" }
             ]
         });
 
