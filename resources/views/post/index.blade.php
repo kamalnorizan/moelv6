@@ -26,6 +26,34 @@
         </div>
     </div>
 </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mdl-edit">
+  Launch
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="mdl-edit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="content">Post</label>
+                  <textarea class="form-control" name="content" id="content" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('script')
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

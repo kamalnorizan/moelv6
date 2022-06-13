@@ -39,7 +39,7 @@ class PostController extends Controller
             return $dropdown;
         })
         ->addColumn('actions',function (Post $post){
-            return '<button type="button" class="btn btn-sm btn-warning btnEdit" data-id="'.$post->id.'">Edit</button>';
+            return '<button data-toggle="modal" data-target="#mdl-edit" type="button" class="btn btn-sm btn-warning btnEdit" data-content="'.$post->content.'" data-id="'.$post->id.'">Edit</button>';
         })
         ->rawColumns(['author','comments','actions'])
         ->make(true);
