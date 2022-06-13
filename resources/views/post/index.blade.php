@@ -26,10 +26,6 @@
         </div>
     </div>
 </div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#mdl-edit">
-  Launch
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="mdl-edit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -46,6 +42,9 @@
                   <label for="content">Post</label>
                   <textarea class="form-control" name="content" id="content" rows="5"></textarea>
                 </div>
+
+                <input type="hidden" name="post-id" id="post-id" class="form-control" value="">
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -82,6 +81,14 @@
         $('.ddcomment').change(function (e) {
             e.preventDefault();
 
+        });
+
+        $('#mdl-edit').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var id = button.data('id');
+                var content = button.data('content');
+                $('#content').val(content);
+                $('#post-id').val(id);
         });
     </script>
 
