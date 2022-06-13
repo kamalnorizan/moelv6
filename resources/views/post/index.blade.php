@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Posts</div>
+                <div class="card-header">Posts <button id="addPostBtn" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#mdl-edit" >Create Post</button></div>
                 <div class="card-body">
                     <table class="table" id="postsTbl">
                         <thead>
@@ -15,6 +15,7 @@
                                 <th>Post</th>
                                 <th>Author</th>
                                 <th>Comments</th>
+                                <th>Created At</th>
                                 <th>Action(s)</th>
                             </tr>
                         </thead>
@@ -48,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" data-dismiss="modal" id="updateBtn" class="btn btn-primary">Update</button>
+                <button type="button" data-dismiss="modal" id="updateBtn" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -58,6 +59,7 @@
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
         var postTable = $('#postsTbl').DataTable({
+            "order":[[3,'desc']],
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -70,6 +72,7 @@
               { "data": "content" },
               { "data": "author" },
               { "data": "comments" },
+              { "data": "created_at" },
               { "data": "actions" }
             ]
         });

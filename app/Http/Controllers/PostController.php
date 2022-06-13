@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use DataTables;
+use Auth;
 class PostController extends Controller
 {
     /**
@@ -22,7 +23,7 @@ class PostController extends Controller
     public function ajaxLoadPostTable(Request $request)
     {
         $posts = Post::with('user');
-
+        // $posts->orderBy('created_at','desc');
         return Datatables::of($posts)
         ->addIndexColumn()
         ->addColumn('author',function (Post $post){
@@ -101,7 +102,15 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
-        Post::find($request->id)->update($request->all());
+        if($request->id!=''){
+            $post = Post::find($request->id);
+            $post->update($request->all());
+        }else{
+            $post = new Post;
+            $post->content = $request->content;
+            $post->user_id = Auth::user()->id;
+            $post->save();
+        }
         return response()->json(['status'=>'success']);
     }
 
