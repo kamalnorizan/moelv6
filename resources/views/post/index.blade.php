@@ -48,7 +48,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Update</button>
+                <button type="button" data-dismiss="modal" id="updateBtn" class="btn btn-primary">Update</button>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
 @section('script')
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
-        $('#postsTbl').DataTable({
+        var postTable = $('#postsTbl').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -74,22 +74,42 @@
             ]
         });
 
-        $(document).on('change','.ddcomment', function(){
-            alert($(this).val());
+        $(document).on('change','.ddcomment', function(event){
+            console.log(event);
         });
 
-        $('.ddcomment').change(function (e) {
-            e.preventDefault();
-
-        });
+        // $(document).on('click','.btnEdit',function(){
+        //     var id = $(this).attr('data-id');
+        //     var content = $(this).attr('data-content');
+        //     $('#content').val(content);
+        //     $('#post-id').val(id);
+        // });
 
         $('#mdl-edit').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var id = button.data('id');
-                var content = button.data('content');
-                $('#content').val(content);
-                $('#post-id').val(id);
+            var button = $(event.relatedTarget);
+            var id = button.data('id');
+            var content = button.data('content');
+            $('#content').val(content);
+            $('#post-id').val(id);
         });
+
+
+        $('#updateBtn').click(function (e) {
+            $.ajax({
+                type: "post",
+                url: "{{route('post.update')}}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: $('#post-id').val(),
+                    content: $('#content').val()
+                },
+                dataType: "json",
+                success: function (response) {
+                    postTable.ajax.reload();
+                }
+            });
+        });
+
     </script>
 
 
