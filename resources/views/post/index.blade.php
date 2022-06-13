@@ -70,7 +70,7 @@
             },
             "columns": [
               { "data": "content" },
-              { "data": "author" },
+              { "data": "author", "name": "user.name"},
               { "data": "comments" },
               { "data": "created_at" },
               { "data": "actions" }

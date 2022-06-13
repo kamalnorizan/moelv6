@@ -22,8 +22,9 @@ class PostController extends Controller
 
     public function ajaxLoadPostTable(Request $request)
     {
+
         $posts = Post::with('user');
-        // $posts->orderBy('created_at','desc');
+
         return Datatables::of($posts)
         ->addIndexColumn()
         ->addColumn('author',function (Post $post){
