@@ -26,3 +26,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/post', 'PostController@index')->name('post.index');
 Route::post('/post/ajaxLoadPostTable', 'PostController@ajaxLoadPostTable')->name('post.ajaxLoadPostTable');
 Route::post('/post/update', 'PostController@update')->name('post.update');
+Route::post('/post/delete', 'PostController@delete')->name('post.delete');

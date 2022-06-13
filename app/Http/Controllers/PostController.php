@@ -39,7 +39,11 @@ class PostController extends Controller
             return $dropdown;
         })
         ->addColumn('actions',function (Post $post){
-            return '<button data-toggle="modal" data-target="#mdl-edit" type="button" class="btn btn-sm btn-warning btnEdit" data-content="'.$post->content.'" data-id="'.$post->id.'">Edit</button>';
+            $button = '<button data-toggle="modal" data-target="#mdl-edit" type="button" class="btn btn-sm btn-warning btnEdit" data-content="'.$post->content.'" data-id="'.$post->id.'">Edit</button>';
+
+            $button .='<button type="button" class="btn btn-sm btn-danger btnDelete"  data-id="'.$post->id.'">Delete</button>';
+
+            return $button;
         })
         ->rawColumns(['author','comments','actions'])
         ->make(true);
@@ -107,8 +111,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function delete(Request $request)
     {
-        //
+        Post::find($request->id)->delete();
+        return response()->json(['status'=>'success']);
     }
 }

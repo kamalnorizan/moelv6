@@ -78,12 +78,44 @@
             console.log(event);
         });
 
-        // $(document).on('click','.btnEdit',function(){
-        //     var id = $(this).attr('data-id');
-        //     var content = $(this).attr('data-content');
-        //     $('#content').val(content);
-        //     $('#post-id').val(id);
-        // });
+        $(document).on('click','.btnDelete',function(e){
+            var id = $(this).attr('data-id');
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this post  again!",
+                icon: "warning",
+                buttons: {cancel: {
+                    text: "Cancel",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "Yes, i'm sure!",
+                    value: true,
+                    visible: true,
+                    className: "btn-danger",
+                    closeModal: true
+                }}
+            }).then((value)=>{
+                if(value==true){
+                    $.ajax({
+                        type: "post",
+                        url: "{{route('post.delete')}}",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            id: id
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            swal("Deleted!", "The post has been deleted successfully.", "success");
+                            postTable.ajax.reload(null, false);
+                        }
+                    });
+                }
+            });
+        });
 
         $('#mdl-edit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
@@ -105,7 +137,7 @@
                 },
                 dataType: "json",
                 success: function (response) {
-                    postTable.ajax.reload();
+                    postTable.ajax.reload(null, false);
                 }
             });
         });
