@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use DataTables;
 use Auth;
+use Carbon\Carbon;
 class PostController extends Controller
 {
     /**
@@ -23,7 +24,17 @@ class PostController extends Controller
     public function ajaxLoadPostTable(Request $request)
     {
 
+
         $posts = Post::with('user');
+
+        if($request->searchPost!=''){
+            $posts->where('content','like','%'.$request->searchPost.'%');
+        }
+
+        $daterange = explode(' - ',$request->datePost);
+        $datestart = Carbon::parse(strtotime($daterange[0]))->format('Y-m-d');
+        $dateend = Carbon::parse(strtotime($daterange[1]))->format('Y-m-d');
+        $posts->whereBetween('created_at',[$datestart,$dateend]);
 
         return Datatables::of($posts)
         ->addIndexColumn()

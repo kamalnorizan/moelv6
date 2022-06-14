@@ -102,6 +102,14 @@
             ]
         });
 
+        $('#searchPost').keyup(function (e) {
+            postTable.ajax.reload();
+        });
+
+        $('#datePost').change(function (e) {
+            postTable.ajax.reload();
+        });
+
         $(document).on('change','.ddcomment', function(event){
             console.log(event);
         });
