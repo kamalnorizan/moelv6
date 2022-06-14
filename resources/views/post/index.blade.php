@@ -7,6 +7,21 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Custom Filter</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" name="searchPost" id="searchPost" class="form-control" placeholder="Sila masukkan carian untuk Post">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="datePost" id="datePost" class="form-control" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card mt-3">
                 <div class="card-header">Posts <button id="addPostBtn" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#mdl-edit" >Create Post</button></div>
                 <div class="card-body">
                     <table class="table" id="postsTbl">
@@ -56,17 +71,27 @@
 </div>
 @endsection
 @section('script')
+
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
+        $('#datePost').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        });
         var postTable = $('#postsTbl').DataTable({
             "order":[[3,'desc']],
             "processing": true,
             "serverSide": true,
             "ajax":{
-                "method":'post',
+             "method":'post',
               "url": "{{ route('post.ajaxLoadPostTable') }}",
               "dataType": "json",
-              "data":{ _token: "{{csrf_token()}}"}
+              "data": function(d){
+                   d._token="{{csrf_token()}}";
+                   d.datePost=$('#datePost').val();
+                   d.searchPost=$('#searchPost').val();
+                }
             },
             "columns": [
               { "data": "content" },
