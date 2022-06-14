@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
-use App\Mail\MailComment;
 use App\Jobs\SendEmailJob;
+use App\Jobs\SendEmailAttachment;
 use Mail;
+use PDF;
 class CommentController extends Controller
 {
     /**
@@ -18,6 +19,12 @@ class CommentController extends Controller
     {
         $comments = Comment::limit(30)->get();
         dispatch(new SendEmailJob($comments));
+
+        // $comments = Comment::limit(30)->get();
+        // $pdf = PDF::loadView('comment.commentlist',compact('comments'));
+        // dispatch(new SendEmailAttachment($pdf->output()));
+
+
         // Mail::to('kamalnorizan@gmail.com')->send(new MailComment);
         // Mail::send('comment.mail', ['status'=>'success'], function ($message) {
         //     $message->to('kamalnorizan@gmail.com', 'Kamal Norizan');
@@ -25,6 +32,8 @@ class CommentController extends Controller
         // });
         return view('comment.index');
     }
+
+
 
     /**
      * Show the form for creating a new resource.
