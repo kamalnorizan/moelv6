@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
-
+use Mail;
+use App\Mail\MailComment;
+use App\Jobs\SendEmailJob;
 class CommentController extends Controller
 {
     /**
@@ -14,7 +16,13 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        dispatch(new SendEmailJob());
+        // Mail::to('kamalnorizan@gmail.com')->send(new MailComment);
+        // Mail::send('comment.mail', ['status'=>'success'], function ($message) {
+        //     $message->to('kamalnorizan@gmail.com', 'Kamal Norizan');
+        //     $message->subject('Test Email');
+        // });
+        return view('comment.index');
     }
 
     /**
