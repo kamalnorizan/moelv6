@@ -9,18 +9,20 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\MailComment;
 use Mail;
+
 class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $comments;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($comments)
     {
-        //
+        $this->comments = $comments;
     }
 
     /**
@@ -30,7 +32,8 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        //
-        Mail::to('kamalnorizan@gmail.com')->send(new MailComment);
+        //generate pdf (Situasi 1)
+        Mail::to('kamalnorizan@gmail.com')
+            ->send(new MailComment($this->comments));
     }
 }
