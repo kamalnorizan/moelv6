@@ -11,9 +11,9 @@ use App\Http\Controllers\PostController;
 |
 */
 
-// DB::listen(function ($event) {
-//     dump($event->sql);
-// });
+DB::listen(function ($event) {
+    dump($event->sql);
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,3 +29,6 @@ Route::post('/post/update', 'PostController@update')->name('post.update');
 Route::post('/post/delete', 'PostController@delete')->name('post.delete');
 
 Route::get('/comment','CommentController@index')->name('comment.index');
+Route::get('/comment/create','CommentController@create')->name('comment.create');
+
+Route::get('eloquent', 'EloquentController@index')->name('eloquent.index');

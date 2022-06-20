@@ -42,7 +42,17 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        $comments = Comment::limit(30)->get();
+        $pdf = PDF::loadView('comment.commentlist',compact('comments'));
+        Mail::send('comment.mail', ['status'=>'success'], function ($message) use ($pdf){
+            $message->to('kamalnorizan@gmail.com', 'Kamal Norizan');
+            $message->subject('Test Email');
+            $message->attachData($pdf->output(),'testattachment.pdf',[
+                'mime'=>'application/pdf'
+            ]);
+        });
+
+        return view('comment.index');
     }
 
     /**
