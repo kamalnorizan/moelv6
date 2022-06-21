@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 class EloquentController extends Controller
 {
     public function index()
@@ -63,4 +64,5 @@ class EloquentController extends Controller
         // $user = User::find(2);
         // dd($user->posts);
     }
+
 }
