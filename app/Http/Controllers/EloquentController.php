@@ -15,7 +15,6 @@ class EloquentController extends Controller
         // $users = User::has('posts.comments')->get();
         // $users = User::with('posts')->has('posts','>',3)->get();
 
-
         $users = User::with(['posts'=>function($q){
             $q->select('content');
         }])
