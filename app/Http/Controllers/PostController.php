@@ -69,7 +69,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post.create');
     }
 
     /**
@@ -80,7 +80,22 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'content'=>'required|max:255',
+            'name'=>'required|alpha_num',
+            'email'=>'email',
+        ]);
+
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = Auth::user()->id;
+        $post->save();
+
+        return redirect()->back();
+
+        // $inputs = $request->all();
+        // $inputs['user_id']=Auth::user()->id;
+        // Post::create($inputs);
     }
 
     /**
