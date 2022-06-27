@@ -49,6 +49,8 @@
 <script>
     $('#submitBtn').click(function (e) {
         e.preventDefault();
+        $('.form-text').empty();
+        $('.form-control').removeClass('is-invalid');
         $.ajax({
             type: "post",
             url: "{{route('post.store')}}",
@@ -65,10 +67,10 @@
             error: function(e){
                 console.log(e.responseJSON.errors);
                 $.each(e.responseJSON.errors, function (indexInArray, error) {
+                    $('#'+indexInArray).addClass('is-invalid');
                     $('#help'+indexInArray).text(error[0]);
                 });
             }
-
         });
     });
 </script>
