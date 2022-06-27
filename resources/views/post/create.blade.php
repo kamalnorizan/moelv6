@@ -23,17 +23,17 @@
                         <div class="form-group">
                           <label for="content">Post</label>
                           <input type="text" class="form-control {{ $errors->first('content') ? 'is-invalid' : '' }}"  name="content" id="content" aria-describedby="helpId" value="{{old('content')}}" placeholder="Insert your post">
-                          <small id="helpId" class="form-text text-danger">{{$errors->first('content') }}</small>
+                          <small id="helpcontent" class="form-text text-danger">{{$errors->first('content') }}</small>
                         </div>
                         <div class="form-group">
                           <label for="name">Name</label>
                           <input type="text" class="form-control {{ $errors->first('name') ? 'is-invalid' : '' }}"  name="name" id="name" aria-describedby="helpId" value="{{old('name')}}" placeholder="Insert your post">
-                          <small id="helpId" class="form-text text-danger">{{$errors->first('name') }}</small>
+                          <small id="helpname" class="form-text text-danger">{{$errors->first('name') }}</small>
                         </div>
                         <div class="form-group">
                           <label for="email">Email</label>
                           <input type="text" class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}"  name="email" id="email" aria-describedby="helpId" value="{{old('email')}}" placeholder="Insert your post">
-                          <small id="helpId" class="form-text text-danger">{{$errors->first('email') }}</small>
+                          <small id="helpemail" class="form-text text-danger">{{$errors->first('email') }}</small>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" id="submitBtn" class="btn btn-primary">Submit Ajax</button>
@@ -64,6 +64,9 @@
             },
             error: function(e){
                 console.log(e.responseJSON.errors);
+                $.each(e.responseJSON.errors, function (indexInArray, error) {
+                    $('#help'+indexInArray).text(error[0]);
+                });
             }
 
         });
