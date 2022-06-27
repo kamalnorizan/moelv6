@@ -128,6 +128,8 @@ class PostController extends Controller
             echo 'Ada Error';
             dd($th);
         }
+
+        dd($post);
     }
 
     /**
