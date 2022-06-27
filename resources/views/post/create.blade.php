@@ -4,20 +4,20 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if ($errors->first())
-            <div class="alert alert-danger" role="alert">
+
+            <div id="errorAlert" class="alert alert-danger @if(!$errors->first()) d-none @endif" role="alert">
                 {{-- {{dd($errors->all())}} --}}
                 @foreach ($errors->all() as $error)
                 {{$error}}<br>
                 @endforeach
             </div>
-            @endif
+
             <div class="card">
                 <div class="card-header">Create New Post</div>
 
                 <div class="card-body">
 
-                    <form action="{{route('post.store')}}" method="post" >
+                    <form action="{{route('post.store')}}" method="post" id="postForm">
                         @csrf
 
                         <div class="form-group">
@@ -51,6 +51,8 @@
         e.preventDefault();
         $('.form-text').empty();
         $('.form-control').removeClass('is-invalid');
+        $('#errorAlert').empty();
+        $('#errorAlert').addClass('d-none');
         $.ajax({
             type: "post",
             url: "{{route('post.store')}}",
@@ -63,13 +65,18 @@
             dataType: "json",
             success: function (response) {
                 console.log(response);
+                $('#postForm')[0].reset();
             },
             error: function(e){
                 console.log(e.responseJSON.errors);
+                var errors = '';
                 $.each(e.responseJSON.errors, function (indexInArray, error) {
                     $('#'+indexInArray).addClass('is-invalid');
                     $('#help'+indexInArray).text(error[0]);
+                    errors = errors + error[0] + '<br>';
                 });
+                $('#errorAlert').removeClass('d-none');
+                $('#errorAlert').append(errors);
             }
         });
     });
