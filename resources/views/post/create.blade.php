@@ -37,6 +37,7 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" id="submitBtn" class="btn btn-primary">Submit Ajax</button>
+                        <button type="button" id="submitBtnJQValidate" class="btn btn-primary">Submit Ajax JQ Validate</button>
 
                     </form>
                 </div>
@@ -46,6 +47,7 @@
 </div>
 @endsection
 @section('script')
+
 <script>
     $('#submitBtn').click(function (e) {
         e.preventDefault();
@@ -79,6 +81,28 @@
                 $('#errorAlert').append(errors);
             }
         });
+    });
+
+    $('#submitBtnJQValidate').click(function (e) {
+        e.preventDefault();
+        if($('#postForm').valid()()){
+            alert('ok');
+            $.ajax({
+                type: "post",
+                url: "{{route('post.storejqValidate')}}",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    content: $('#content').val(),
+                    name: $('#name').val(),
+                    email: $('#email').val()
+                },
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    $('#postForm')[0].reset();
+                },
+            });
+        }
     });
 </script>
 @endsection

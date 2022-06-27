@@ -93,6 +93,20 @@ class PostController extends Controller
         }
 
     }
+    public function storejqValidate(Request $request)
+    {
+
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = Auth::user()->id;
+        $post->save();
+        if($request->ajax()){
+            return response()->json($post);
+        }else{
+            return redirect()->back();
+        }
+
+    }
 
     /**
      * Display the specified resource.
