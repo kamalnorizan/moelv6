@@ -26,7 +26,7 @@ class PostStoreRequest extends FormRequest
         return [
             'content'=>'required|max:255',
             'name'=>'required|alpha_num',
-            'email'=>'email',
+            'email'=>'required|email',
         ];
     }
 }

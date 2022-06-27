@@ -4,12 +4,14 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if ($errors->first())
             <div class="alert alert-danger" role="alert">
                 {{-- {{dd($errors->all())}} --}}
                 @foreach ($errors->all() as $error)
                 {{$error}}<br>
                 @endforeach
             </div>
+            @endif
             <div class="card">
                 <div class="card-header">Create New Post</div>
 
@@ -34,6 +36,7 @@
                           <small id="helpId" class="form-text text-danger">{{$errors->first('email') }}</small>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" id="submitBtn" class="btn btn-primary">Submit Ajax</button>
 
                     </form>
                 </div>
@@ -41,4 +44,29 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+<script>
+    $('#submitBtn').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: "{{route('post.store')}}",
+            data: {
+                _token: '{{ csrf_token() }}',
+                content: $('#content').val(),
+                name: $('#name').val(),
+                email: $('#email').val()
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+            },
+            error: function(e){
+                console.log(e.responseJSON.errors);
+            }
+
+        });
+    });
+</script>
 @endsection

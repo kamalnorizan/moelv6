@@ -81,22 +81,17 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
-        // $this->validate($request,[
-        //     'content'=>'required|max:255',
-        //     'name'=>'required|alpha_num',
-        //     'email'=>'email',
-        // ]);
 
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = Auth::user()->id;
         $post->save();
+        if($request->ajax()){
+            return response()->json($post);
+        }else{
+            return redirect()->back();
+        }
 
-        return redirect()->back();
-
-        // $inputs = $request->all();
-        // $inputs['user_id']=Auth::user()->id;
-        // Post::create($inputs);
     }
 
     /**
