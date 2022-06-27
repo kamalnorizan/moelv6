@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use Auth;
 use Carbon\Carbon;
+use App\Http\Requests\PostStoreRequest;
 class PostController extends Controller
 {
     /**
@@ -78,13 +79,13 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        $this->validate($request,[
-            'content'=>'required|max:255',
-            'name'=>'required|alpha_num',
-            'email'=>'email',
-        ]);
+        // $this->validate($request,[
+        //     'content'=>'required|max:255',
+        //     'name'=>'required|alpha_num',
+        //     'email'=>'email',
+        // ]);
 
         $post = new Post;
         $post->content = $request->content;
