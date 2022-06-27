@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use DataTables;
 use Auth;
 use Carbon\Carbon;
@@ -116,8 +117,17 @@ class PostController extends Controller
      */
     public function show($post)
     {
-        $post = Post::findOrFail($post);
-        dd($post->content);
+        try {
+            $post = Post::findOrFail($post);
+            // dd($post->content);
+        }catch(ModelNotFoundException $e){
+            // echo 'Ada Error post tak wujud';
+            // dd($e);
+            abort(404,$e);
+        }catch (\Throwable $th) {
+            echo 'Ada Error';
+            dd($th);
+        }
     }
 
     /**
