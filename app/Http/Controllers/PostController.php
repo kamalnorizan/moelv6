@@ -123,12 +123,14 @@ class PostController extends Controller
         Log::critical("critical");
         Log::debug("debug");
         Log::emergency("emergency");
-
+        \Sentry\captureMessage('Test 123');
         // try {
         //     $this->functionFailsForSure();
         // }catch(\Throwable $th){
         //     \Sentry\captureException($th);
+
         // }
+
         // try {
         //     $post = Post::findOrFail($post);
         //     // dd($post->content);
