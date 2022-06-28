@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use DataTables;
 use Auth;
+use Log;
 use Carbon\Carbon;
 use App\Http\Requests\PostStoreRequest;
 class PostController extends Controller
@@ -117,19 +118,31 @@ class PostController extends Controller
      */
     public function show($post)
     {
-        try {
-            $post = Post::findOrFail($post);
-            // dd($post->content);
-        }catch(ModelNotFoundException $e){
-            // echo 'Ada Error post tak wujud';
-            // dd($e);
-            abort(404,$e);
-        }catch (\Throwable $th) {
-            echo 'Ada Error';
-            dd($th);
-        }
+        Log::error('test');
+        Log::alert("alert");
+        Log::critical("critical");
+        Log::debug("debug");
+        Log::emergency("emergency");
 
-        dd($post);
+        // try {
+        //     $this->functionFailsForSure();
+        // }catch(\Throwable $th){
+        //     \Sentry\captureException($th);
+        // }
+        // try {
+        //     $post = Post::findOrFail($post);
+        //     // dd($post->content);
+        // // }catch(ModelNotFoundException $e){
+        // //     // echo 'Ada Error post tak wujud';
+        // //     // dd($e);
+        // //     \Sentry\captureException($e);
+        // //     abort(404,$e);
+        // }
+        // catch (\Throwable $th) {
+        //     \Sentry\captureException($th);
+        //     abort(404,$th);
+        // }
+
     }
 
     /**
@@ -174,5 +187,10 @@ class PostController extends Controller
     {
         Post::find($request->id)->delete();
         return response()->json(['status'=>'success']);
+    }
+
+    public function testException()
+    {
+        throw new \Exception('Test sentry');
     }
 }

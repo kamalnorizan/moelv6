@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/post', 'PostController@store')->name('post.store');
     Route::post('/post/storejqValidate', 'PostController@storejqValidate')->name('post.storejqValidate');
 
+    Route::get('/post/testException','PostController@testException')->name('post.testException');
+
     Route::get('/post/{post}','PostController@show')->name('post.show');
 
     Route::get('/comment','CommentController@index')->name('comment.index');

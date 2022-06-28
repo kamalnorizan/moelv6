@@ -35,9 +35,13 @@ return [
     */
 
     'channels' => [
+        'sentry'=> [
+            'driver' => 'sentry',
+        ],
+
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single','sentry'],
             'ignore_exceptions' => false,
         ],
 
