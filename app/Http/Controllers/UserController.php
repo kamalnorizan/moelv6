@@ -12,6 +12,10 @@ class UserController extends Controller
         $request->session()->put('email',$request->email);
         $email = $request->session()->get('email');
         $user = User::where('email', $email)->first();
-        dd($user);
+        if($user){
+            dd($user);
+        }else{
+            return redirect('login');
+        }
     }
 }
