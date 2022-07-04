@@ -24,6 +24,9 @@ Route::get('user/ssoLogin', 'UserController@ssoLogin')->name('user.ssologin');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home/untukAdmin', 'HomeController@untukAdmin')->name('home.untukAdmin')->middleware('can:isAdmin');
+    Route::get('/home/untukGuru', 'HomeController@untukGuru')->name('home.untukGuru')->middleware('can:isGuru');
+    Route::get('/home/untukBpsh', 'HomeController@untukBpsh')->name('home.untukBpsh')->middleware('can:isBpsh');
     Route::get('/post', 'PostController@index')->name('post.index');
     Route::post('/post/ajaxLoadPostTable', 'PostController@ajaxLoadPostTable')->name('post.ajaxLoadPostTable');
     Route::post('/post/update', 'PostController@update')->name('post.update');

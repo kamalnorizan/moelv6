@@ -23,9 +23,32 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // if(Gate::allows('isBpsh')){
-        //     dd('bpsh');
+        // if(Gate::denies('isAdmin')){
+        //     return redirect('home');
         // }
+
+        if(Gate::allows('isBpsh')){
+
+        }elseif(Gate::allows('isGuru')){
+
+        }
+
+
         return view('home');
+    }
+
+    public function untukAdmin()
+    {
+        dd('admin');
+    }
+
+    public function untukGuru()
+    {
+        dd('Guru');
+    }
+
+    public function untukBpsh()
+    {
+        dd('Bpsh');
     }
 }

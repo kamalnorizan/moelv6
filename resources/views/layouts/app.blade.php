@@ -44,18 +44,18 @@
                         {{-- @if (in_array('admin',session()->get('roles'))) --}}
                         @can('isAdmin')
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Btn Admin</a>
+                            <a class="nav-link" href="{{route('home.untukAdmin')}}">Btn Admin</a>
                         </li>
                         @endcan
                         {{-- @if (in_array('guru',session()->get('roles'))) --}}
                         @can('isGuru')
                         <li class="nav-item">
-                            <a class="nav-link" href="#" >Btn Guru</a>
+                            <a class="nav-link" href="{{route('home.untukGuru')}}" >Btn Guru</a>
                         </li>
                         @endcan
                         @can('isBpsh')
                         <li class="nav-item">
-                            <a class="nav-link" href="#" >Btn Bpsh</a>
+                            <a class="nav-link" href="{{route('home.untukBpsh')}}" >Btn Bpsh</a>
                         </li>
                         @endcan
                         @endauth
