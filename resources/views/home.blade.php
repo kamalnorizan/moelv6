@@ -25,6 +25,19 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
+                    @can('isAdmin')
+                        ADA ADMIN <br>
+                    @endcan
+
+                    @can('isGuru')
+                        ADA GURU  <br>
+                    @endcan
+
+                    @can('isBpsh')
+                        ADA BPSH  <br>
+                    @endcan
+
+                    <hr>
                     @foreach (Auth::user()->posts as $post)
                         ~ {{$post->user->name}} <br>
                         {{$post->content}}<hr>

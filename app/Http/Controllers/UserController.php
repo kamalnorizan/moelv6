@@ -12,7 +12,14 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
         if($user){
             $request->session()->put('email',$request->email);
+            if($request->roles!=null){
+                $roles = explode('|',$request->roles);
+                $request->session()->put('roles',$roles);
+            }
+
+            // dd($request->session()->get('roles'));
             Auth::loginUsingId($user->id);
+
             return redirect('home');
         }else{
             return redirect('login');

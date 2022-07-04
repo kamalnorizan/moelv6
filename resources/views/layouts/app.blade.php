@@ -41,6 +41,21 @@
                             <a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         </li>
+                        @if (in_array('admin',session()->get('roles')))
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Btn Admin</a>
+                        </li>
+                        @endif
+                        @if (in_array('guru',session()->get('roles')))
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" >Btn Guru</a>
+                        </li>
+                        @endif
+                        @if (in_array('bpsh',session()->get('roles')))
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" >Btn Bpsh</a>
+                        </li>
+                        @endif
                         @endauth
                         @guest
                         <li class="nav-item">

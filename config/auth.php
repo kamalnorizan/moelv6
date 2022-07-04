@@ -71,9 +71,9 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
+        // 'ibubapa' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Ibubapa::class,
         // ],
     ],
 
