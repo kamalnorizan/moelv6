@@ -3,22 +3,22 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
-class MyFirstCommand extends Command
+use App\User;
+class createUser extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'mycommand';
+    protected $signature = 'createUser';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'This is my first command';
+    protected $description = 'This command will create new user';
 
     /**
      * Create a new command instance.
@@ -37,7 +37,8 @@ class MyFirstCommand extends Command
      */
     public function handle()
     {
-        echo 'This is my first command';
-        
+        $this->call('db:seed');
+        $user = User::count();
+        echo 'Current users count: '.$user;
     }
 }
