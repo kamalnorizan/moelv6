@@ -9,11 +9,11 @@ class UserController extends Controller
 {
     public function ssoLogin(Request $request)
     {
-        $request->session()->put('email',$request->email);
-        $email = $request->session()->get('email');
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', $request->email)->first();
         if($user){
-            dd($user);
+            $request->session()->put('email',$request->email);
+            Auth::loginUsingId($user->id);
+            return redirect('home');
         }else{
             return redirect('login');
         }
