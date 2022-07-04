@@ -27,13 +27,10 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('isAdmin', function(){
             return in_array('admin',session()->get('roles'));
-
         });
 
         Gate::define('isGuru', function(){
             return in_array('guru',session()->get('roles'));
-
-
         });
 
         Gate::define('isBpsh', function(){

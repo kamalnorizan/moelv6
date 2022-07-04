@@ -41,21 +41,23 @@
                             <a class="nav-link" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         </li>
-                        @if (in_array('admin',session()->get('roles')))
+                        {{-- @if (in_array('admin',session()->get('roles'))) --}}
+                        @can('isAdmin')
                         <li class="nav-item">
                             <a class="nav-link" href="#">Btn Admin</a>
                         </li>
-                        @endif
-                        @if (in_array('guru',session()->get('roles')))
+                        @endcan
+                        {{-- @if (in_array('guru',session()->get('roles'))) --}}
+                        @can('isGuru')
                         <li class="nav-item">
                             <a class="nav-link" href="#" >Btn Guru</a>
                         </li>
-                        @endif
-                        @if (in_array('bpsh',session()->get('roles')))
+                        @endcan
+                        @can('isBpsh')
                         <li class="nav-item">
                             <a class="nav-link" href="#" >Btn Bpsh</a>
                         </li>
-                        @endif
+                        @endcan
                         @endauth
                         @guest
                         <li class="nav-item">

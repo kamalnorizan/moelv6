@@ -23,9 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Gate::allows('isBpsh')){
-            dd('bpsh');
-        }
+        // if(Gate::allows('isBpsh')){
+        //     dd('bpsh');
+        // }
         return view('home');
     }
 }
