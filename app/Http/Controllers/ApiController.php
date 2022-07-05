@@ -14,7 +14,11 @@ class ApiController extends Controller
         ];
 
         if(Auth::attempt($data)){
-            $token = Auth::user()->createToken('moeis apps')->accessToken;
+            if(Auth::user()->id==1){
+                $token = Auth::user()->createToken('moeis apps',['view-all-posts'])->accessToken;
+            }else{
+                $token = Auth::user()->createToken('moeis apps')->accessToken;
+            }
 
             return response()->json( $token);
         }else{
@@ -28,5 +32,10 @@ class ApiController extends Controller
         $user = Auth::user()->token();
         $user->revoke();
         return response()->json( ['status'=>'Success']);
+    }
+
+    public function getPosts()
+    {
+        # code...
     }
 }

@@ -198,8 +198,13 @@ class PostController extends Controller
 
     public function getLatestPost()
     {
+        if(Auth::user()->tokenCan('view-all-posts')){
 
-        $posts = Post::where('user_id',Auth::user()->id)->limit(20)->latest()->get();
+            $posts = Post::limit(50)->get();
+        }else{
+
+            $posts = Post::where('user_id',Auth::user()->id)->limit(20)->latest()->get();
+        }
         return response()->json($posts);
     }
 }

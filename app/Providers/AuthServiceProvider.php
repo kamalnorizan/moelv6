@@ -27,6 +27,11 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
+        Passport::tokensCan([
+            'view-all-posts'=> 'View all posts',
+            'single-post'=> 'View single post',
+        ]);
+
         Gate::define('isAdmin', function(){
             return in_array('admin',session()->get('roles'));
         });
@@ -38,5 +43,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isBpsh', function(){
             return in_array('bpsh',session()->get('roles'));
         });
+
     }
 }
