@@ -32,16 +32,21 @@ class AuthServiceProvider extends ServiceProvider
             'single-post'=> 'View single post',
         ]);
 
+
+
         Gate::define('isAdmin', function(){
-            return in_array('admin',session()->get('roles'));
+            $roles = session()->get('roles') ? session()->get('roles') : [];
+            return in_array('admin',$roles);
         });
 
         Gate::define('isGuru', function(){
-            return in_array('guru',session()->get('roles'));
+            $roles = session()->get('roles') ? session()->get('roles') : [];
+            return in_array('guru',$roles);
         });
 
         Gate::define('isBpsh', function(){
-            return in_array('bpsh',session()->get('roles'));
+            $roles = session()->get('roles') ? session()->get('roles') : [];
+            return in_array('bpsh',$roles);
         });
 
     }
