@@ -42,7 +42,12 @@
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         </li>
                         {{-- @if (in_array('admin',session()->get('roles'))) --}}
-                        @can('isAdmin')
+                        @cannot(['isAdmin'])
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('home.untukAdmin')}}">Cannot Admin</a>
+                        </li>
+                        @endcannot
+                        @canany(['isAdmin','isGuru'])
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('home.untukAdmin')}}">Btn Admin</a>
                         </li>

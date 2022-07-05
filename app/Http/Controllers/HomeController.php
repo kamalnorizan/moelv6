@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Gate;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -26,6 +27,8 @@ class HomeController extends Controller
         // if(Gate::denies('isAdmin')){
         //     return redirect('home');
         // }
+
+        dd(Auth::user());
 
         if(Gate::allows('isBpsh')){
 
