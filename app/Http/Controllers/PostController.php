@@ -198,7 +198,7 @@ class PostController extends Controller
 
     public function getLatestPost()
     {
-        dd(Auth::user());
+
         $posts = Post::where('user_id',Auth::user()->id)->limit(20)->latest()->get();
         return response()->json($posts);
     }
