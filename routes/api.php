@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('post/getLatestPost', 'PostController@getLatestPost')->middleware('auth:api');
 
+Route::get('logout', 'ApiController@logout')->middleware('auth:api');
 Route::post('login','ApiController@login');

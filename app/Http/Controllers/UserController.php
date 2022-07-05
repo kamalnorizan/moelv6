@@ -25,4 +25,9 @@ class UserController extends Controller
             return redirect('login');
         }
     }
+
+    // public function userTokens()
+    // {
+    //     $users = User::first();
+    // }
 }

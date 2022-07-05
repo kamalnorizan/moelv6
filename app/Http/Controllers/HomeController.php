@@ -28,7 +28,8 @@ class HomeController extends Controller
         //     return redirect('home');
         // }
 
-        dd(Auth::user());
+        // dd(Auth::user());
+        \Artisan::call('optimize:clear');
 
         if(Gate::allows('isBpsh')){
 

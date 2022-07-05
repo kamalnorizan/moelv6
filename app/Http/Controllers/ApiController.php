@@ -22,4 +22,11 @@ class ApiController extends Controller
 
         }
     }
+
+    public function logout()
+    {
+        $user = Auth::user()->token();
+        $user->revoke();
+        return response()->json( ['status'=>'Success']);
+    }
 }
