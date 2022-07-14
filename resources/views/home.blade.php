@@ -25,6 +25,8 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
+
+                    {{\Carbon\Carbon::parse(\Carbon\Carbon::now())->endOfMonth()->format('d-m-Y')}}
                     @can('isAdmin')
                         ADA ADMIN <br>
                     @endcan
@@ -38,10 +40,14 @@
                     @endcan
 
                     <hr>
-                    @foreach (Auth::user()->posts as $post)
-                        ~ {{$post->user->name}} <br>
-                        {{$post->content}}<hr>
-                    @endforeach
+                    {{-- @foreach ($posts as $post)
+                        ~ {{Auth::user()->name}} <br>
+                        {{$post->content}}({{$post->id}}-{{$post->id+3}})<hr>
+
+                        @foreach ($post->comments as $comment)
+                        ---{{$comment->content}}
+                        @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         </div>

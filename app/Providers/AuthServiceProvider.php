@@ -32,8 +32,6 @@ class AuthServiceProvider extends ServiceProvider
             'single-post'=> 'View single post',
         ]);
 
-
-
         Gate::define('isAdmin', function(){
             $roles = session()->get('roles') ? session()->get('roles') : [];
             return in_array('admin',$roles);

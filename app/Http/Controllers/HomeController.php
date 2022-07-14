@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Gate;
 use Auth;
+use App\Post;
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -37,8 +39,22 @@ class HomeController extends Controller
 
         }
 
+        $posts = DB::table('posts')->first();
+        $postsLast = DB::table('posts')->orderBy('id','desc')->first();
+        // dd($posts);
+        // dd($postsLast);
 
-        return view('home');
+        // $posts = DB::table('posts')->get();
+        // dd($posts->first());
+        // dd($posts->last());
+
+
+        $posts = Post::where('user_id',Auth::user()->id)->get();
+        // dd($posts);
+
+        // dd($posts->where('id',88));
+
+        return view('home',compact('posts'));
     }
 
     public function untukAdmin()
