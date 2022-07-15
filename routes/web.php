@@ -23,6 +23,7 @@ Auth::routes();
 Route::get('user/ssoLogin', 'UserController@ssoLogin')->name('user.ssologin');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('user/getTokens','UserController@getTokens')->name('user.getTokens');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/home/untukAdmin', 'HomeController@untukAdmin')->name('home.untukAdmin')->middleware('can:isAdmin');
     Route::get('/home/untukGuru', 'HomeController@untukGuru')->name('home.untukGuru')->middleware('can:isGuru');

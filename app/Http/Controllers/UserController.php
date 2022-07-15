@@ -10,6 +10,7 @@ class UserController extends Controller
     public function ssoLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();
+        // dd($request->roles);
         if($user){
             $request->session()->put('email',$request->email);
             if($request->roles!=null){
@@ -26,8 +27,9 @@ class UserController extends Controller
         }
     }
 
-    // public function userTokens()
-    // {
-    //     $users = User::first();
-    // }
+    public function getTokens()
+    {
+        $tokens = Auth::user()->tokens->where('revoked',0);
+        return response()->json($tokens);
+    }
 }
