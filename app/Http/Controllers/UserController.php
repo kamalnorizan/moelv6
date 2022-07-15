@@ -19,6 +19,12 @@ class UserController extends Controller
         return view('users.index',compact('roles','permissions'));
     }
 
+    public function rolesStore (Request $request)
+    {
+        Role::create(['name'=>$request->roleName]);
+        return redirect()->back();
+    }
+
     public function ssoLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();

@@ -47,4 +47,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('eloquent', 'EloquentController@index')->name('eloquent.index');
 
     Route::get('users', 'UserController@index')->name('user.index');
+    Route::post('users/roles/store','UserController@rolesStore')->name('user.role.store');
 });
