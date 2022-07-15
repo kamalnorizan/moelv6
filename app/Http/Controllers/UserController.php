@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Laravel\Passport\Token as ClientToken;
 use Auth;
 class UserController extends Controller
 {
@@ -31,5 +32,11 @@ class UserController extends Controller
     {
         $tokens = Auth::user()->tokens->where('revoked',0);
         return response()->json($tokens);
+    }
+
+    public function destroyToken($token_id)
+    {
+        $token = ClientToken::find($token_id)->revoke();
+        return redirect()->back();
     }
 }

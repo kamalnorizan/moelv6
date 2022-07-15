@@ -48,7 +48,13 @@
                                         {{\Carbon\Carbon::parse($token->expires_at)->format('d-m-Y')}}
                                     </td>
                                     <td>
-                                        <button class="btn btn-sm btn-danger btnRevokeAjax" data-token-id="{{$token->id}}">Revoke Via Ajax</button>
+                                        <button type="button" class="btn btn-sm btn-danger btnRevokeAjax" data-token-id="{{$token->id}}">Revoke Via Ajax</button>
+
+                                        <form action="{{route('user.destroyToken',['token_id'=>$token->id])}}" method="post">
+                                            <input type="hidden" name="_method" class="form-control" value="DELETE">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger">Revoke Via Submit</button>
+                                        </form>
 
                                     </td>
                                 </tr>
