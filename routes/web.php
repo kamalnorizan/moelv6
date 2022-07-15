@@ -45,4 +45,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/comment/create','CommentController@create')->name('comment.create');
 
     Route::get('eloquent', 'EloquentController@index')->name('eloquent.index');
+
+    Route::get('users', 'UserController@index')->name('user.index');
 });

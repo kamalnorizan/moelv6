@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "*",
         "sentry/sentry-laravel": "^2.12",
+        "spatie/laravel-permission": "3.x",
         "yajra/laravel-datatables-oracle": "9.*"
     },
     "require-dev": {

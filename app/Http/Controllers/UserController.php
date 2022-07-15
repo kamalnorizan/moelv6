@@ -8,6 +8,11 @@ use Laravel\Passport\Token as ClientToken;
 use Auth;
 class UserController extends Controller
 {
+    public function index()
+    {
+        return view('users.index');
+    }
+
     public function ssoLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();
