@@ -22,6 +22,7 @@ class UserController extends Controller
     public function rolesStore (Request $request)
     {
         Role::create(['name'=>$request->roleName]);
+        flash('Role created successfully')->success()->important();
         return redirect()->back();
     }
 
