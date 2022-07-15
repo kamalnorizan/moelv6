@@ -26,6 +26,13 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function rolesRemove($role)
+    {
+        Role::find($role)->delete();
+        flash('Role deleted successfully')->error()->important();
+        return redirect()->back();
+    }
+
     public function ssoLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();

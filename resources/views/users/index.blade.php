@@ -31,7 +31,7 @@
                             {{$role->permissions}}
                         </td>
                         <td>
-
+                            <a href="{{route('user.role.remove',['role'=>$role->id])}}" class="btn btn-danger btn-sm">Remove</a>
                         </td>
                     </tr>
                     @endforeach
@@ -39,6 +39,7 @@
                 </div>
             </div>
         </div>
+        @role('Guru_Besar')
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Permissions</div>
@@ -48,6 +49,7 @@
                 </div>
             </div>
         </div>
+        @endrole
         <div class="col-md-12 mt-2">
             <div class="card">
                 <div class="card-header">Users</div>

@@ -48,4 +48,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('users', 'UserController@index')->name('user.index');
     Route::post('users/roles/store','UserController@rolesStore')->name('user.role.store');
+    Route::get('users/roles/remove/{role}','UserController@rolesRemove')->name('user.role.remove');
 });
