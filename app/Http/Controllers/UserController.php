@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use App\User;
 use Laravel\Passport\Token as ClientToken;
 use Auth;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class UserController extends Controller
 {
     public function index()
     {
-        return view('users.index');
+        $roles = Role::all();
+        $permissions = Permission::all();
+        // dd($roles);
+
+        return view('users.index',compact('roles','permissions'));
     }
 
     public function ssoLogin(Request $request)

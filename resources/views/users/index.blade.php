@@ -8,9 +8,34 @@
                 <div class="card-header">Roles</div>
 
                 <div class="card-body">
-                   content
+                   <table class="table" id="role_tble">
+                    <tr>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Permissions
+                        </td>
+                        <td>
+                            Action(s)
+                        </td>
+                    </tr>
+                    @foreach ($roles as $role)
+                    <tr>
+                        <td>
+                            {{$role->name}}
+                        </td>
+                        <td>
+                            {{$role->permissions}}
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    @endforeach
+                   </table>
                 </div>
-            </div>  
+            </div>
         </div>
         <div class="col-md-6">
             <div class="card">
