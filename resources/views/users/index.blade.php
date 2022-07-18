@@ -31,6 +31,7 @@
                             {{$role->permissions}}
                         </td>
                         <td>
+
                             <a href="{{route('user.role.remove',['role'=>$role->id])}}" class="btn btn-danger btn-sm">Remove</a>
                         </td>
                     </tr>
