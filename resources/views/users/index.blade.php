@@ -34,7 +34,7 @@
                             @endforeach
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#assignPermission-mdl" data-roleid="{{$role->id}}" data-permissions="{{$role->permissions}}">
+                            <button type="button" class="btn btn-primary btn-sm assignPermissionBtn" data-toggle="modal" data-target="#assignPermission-mdl" data-roleid="{{$role->id}}" data-permissions="{{$role->permissions}}">
                                 Assign Permission
                             </button>
                             <a href="{{route('user.role.remove',['role'=>$role->id])}}" class="btn btn-danger btn-sm">Remove</a>
@@ -170,23 +170,24 @@
 @endsection
 @section('script')
 <script>
-    $('#assignPermission-mdl').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var role_id = button.data('roleid');
-        var permissions = button.data('permissions');
+    var clickedAssignBtn;
+    // $('#assignPermission-mdl').on('show.bs.modal', function (event) {
+    $(document).on('click','.assignPermissionBtn',function(){
+        var button = $(this);
+        clickedAssignBtn = button;
+        var role_id = button.attr('data-roleid');
+        var permissions = jQuery.parseJSON(button.attr('data-permissions'));
         $('#roleId_permission').val(role_id);
         $.each($('.ck_permission'), function (indexInArray, ck_permission) {
-            $(ck_permission).attr('checked',false);
+            $(ck_permission).prop('checked',false);
         });
 
         $.each(permissions, function (indexInArray, permission) {
-            $('#ck_permission_'+permission.id).attr('checked',true);
+            $('#ck_permission_'+permission.id).prop('checked',true);
         });
     });
 
     $('.ck_permission').change(function (e) {
-        e.preventDefault();
-        $(this).prop('checked');
         var permissionId = $(this).attr('data-permissionid');
         $.ajax({
             type: "post",
@@ -199,7 +200,9 @@
             },
             dataType: "json",
             success: function (response) {
+                console.log($(clickedAssignBtn).attr('data-permissions'));
 
+                $(clickedAssignBtn).attr('data-permissions',JSON.stringify(response.permissions));
             }
         });
     });

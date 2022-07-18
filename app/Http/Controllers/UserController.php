@@ -42,8 +42,9 @@ class UserController extends Controller
         }else{
             $role->revokePermissionTo($request->permission);
         }
-
-        return response()->json(['status'=>'success']);
+        $data['permissions']=$role->permissions;
+        $data['status']='success';
+        return response()->json($data);
     }
 
     public function permissionStore(Request $request)
