@@ -36,10 +36,11 @@ class UserController extends Controller
     {
         $role = Role::find($request->role);
         $permission = Permission::find($request->permission);
-        if($request->assign){
+        // return response()->json($request->assign);
+        if($request->assign=="true"){
             $role->givePermissionTo($request->permission);
         }else{
-            $role->revokePermissionTo($permission->name);
+            $role->revokePermissionTo($request->permission);
         }
 
         return response()->json(['status'=>'success']);
