@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users', 'UserController@index')->name('user.index');
     Route::post('users/roles/store','UserController@rolesStore')->name('user.role.store');
     Route::get('users/roles/remove/{role}','UserController@rolesRemove')->name('user.role.remove');
+    Route::post('users/roles/assignpermission','UserController@assignpermission')->name('user.role.assignpermission');
     Route::post('users/permission/store','UserController@permissionStore')->name('user.permission.store');
 
     Route::get('takwim/{month?}/{year?}','TakwimSekolahController@index')->name('takwim.index');

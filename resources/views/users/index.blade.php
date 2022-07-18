@@ -28,10 +28,15 @@
                             {{$role->name}}
                         </td>
                         <td>
-                            {{$role->permissions}}
+                            {{-- {{$role->permissions}} --}}
+                            @foreach ($role->permissions as $permission)
+                                <span class="badge badge-primary">{{$permission->name}}</span>
+                            @endforeach
                         </td>
                         <td>
-
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#assignPermission-mdl" data-roleid="{{$role->id}}" data-permissions="{{$role->permissions}}">
+                                Assign Permission
+                            </button>
                             <a href="{{route('user.role.remove',['role'=>$role->id])}}" class="btn btn-danger btn-sm">Remove</a>
                         </td>
                     </tr>
@@ -130,4 +135,73 @@
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="assignPermission-mdl" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Permission</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+
+                <input type="hidden" name="roleId_permission" id="roleId_permission" class="form-control" value="">
+
+                <div class="row">
+                    @foreach ($permissions as $permission)
+                    <div class="col-md-4">
+                        <input type="checkbox" name="ck_permission" id="ck_permission_{{$permission->id}}" class="ck_permission" data-permissionid="{{$permission->id}}">{{$permission->name}}
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('script')
+<script>
+    $('#assignPermission-mdl').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var role_id = button.data('roleid');
+        var permissions = button.data('permissions');
+        $('#roleId_permission').val(role_id);
+        $.each($('.ck_permission'), function (indexInArray, ck_permission) {
+            $(ck_permission).attr('checked',false);
+        });
+
+        $.each(permissions, function (indexInArray, permission) {
+            $('#ck_permission_'+permission.id).attr('checked',true);
+        });
+    });
+
+    $('.ck_permission').change(function (e) {
+        e.preventDefault();
+        $(this).prop('checked');
+        var permissionId = $(this).attr('data-permissionid');
+        $.ajax({
+            type: "post",
+            url: "{{route('user.role.assignpermission')}}",
+            data: {
+                _token: '{{ csrf_token() }}',
+                role: $('#roleId_permission').val(),
+                permission: permissionId,
+                assign: $(this).prop('checked')
+            },
+            dataType: "json",
+            success: function (response) {
+
+            }
+        });
+    });
+</script>
 @endsection

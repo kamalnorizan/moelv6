@@ -32,6 +32,19 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function assignpermission(Request $request)
+    {
+        $role = Role::find($request->role);
+        $permission = Permission::find($request->permission);
+        if($request->assign){
+            $role->givePermissionTo($request->permission);
+        }else{
+            $role->revokePermissionTo($permission->name);
+        }
+
+        return response()->json(['status'=>'success']);
+    }
+
     public function permissionStore(Request $request)
     {
         Permission::create(['name'=>$request->permissionName]);
