@@ -14,7 +14,6 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        // dd($roles);
 
         return view('users.index',compact('roles','permissions'));
     }
@@ -33,10 +32,17 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function permissionStore(Request $request)
+    {
+        Permission::create(['name'=>$request->permissionName]);
+        flash('Permission created successfully')->success()->important();
+        return redirect()->back();
+    }
+
     public function ssoLogin(Request $request)
     {
         $user = User::where('email', $request->email)->first();
-        // dd($request->roles);
+
         if($user){
             $request->session()->put('email',$request->email);
             if($request->roles!=null){
@@ -44,7 +50,6 @@ class UserController extends Controller
                 $request->session()->put('roles',$roles);
             }
 
-            // dd($request->session()->get('roles'));
             Auth::loginUsingId($user->id);
 
             return redirect('home');
