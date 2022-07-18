@@ -35,10 +35,15 @@
                             {{-- </div> --}}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary btn-sm assignPermissionBtn" data-toggle="modal" data-target="#assignPermission-mdl" data-roleid="{{$role->id}}" data-permissions="{{$role->permissions}}">
-                                Assign Permission
-                            </button>
-                            <a href="{{route('user.role.remove',['role'=>$role->id])}}" class="btn btn-danger btn-sm">Remove</a>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Actions
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a type="button" class="dropdown-item assignPermissionBtn" data-toggle="modal" data-target="#assignPermission-mdl" data-roleid="{{$role->id}}" data-permissions="{{$role->permissions}}">Assign Permission</a>
+                                  <a href="{{route('user.role.remove',['role'=>$role->id])}}" class="dropdown-item">Remove</a>
+                                </div>
+                              </div>
                         </td>
                     </tr>
                     @endforeach
