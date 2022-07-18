@@ -27,11 +27,12 @@
                         <td>
                             {{$role->name}}
                         </td>
-                        <td>
-                            {{-- {{$role->permissions}} --}}
-                            @foreach ($role->permissions as $permission)
-                                <span class="badge badge-primary">{{$permission->name}}</span>
-                            @endforeach
+                        <td class="permission-div">
+                            {{-- <div class="permission-div"> --}}
+                                @foreach ($role->permissions as $permission)
+                                    <span class="badge badge-primary">{{$permission->name}}</span>
+                                @endforeach
+                            {{-- </div> --}}
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm assignPermissionBtn" data-toggle="modal" data-target="#assignPermission-mdl" data-roleid="{{$role->id}}" data-permissions="{{$role->permissions}}">
@@ -203,6 +204,15 @@
                 console.log($(clickedAssignBtn).attr('data-permissions'));
 
                 $(clickedAssignBtn).attr('data-permissions',JSON.stringify(response.permissions));
+
+                var permissionDiv = $(clickedAssignBtn).parents().closest('tr').children('td.permission-div');
+
+                $(permissionDiv).empty();
+                $.each(response.permissions, function (indexInArray, permission) {
+                    $(permissionDiv).append(
+                        '<span class="badge badge-primary">'+permission.name+'</span> '
+                    );
+                });
             }
         });
     });
