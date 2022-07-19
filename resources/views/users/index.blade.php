@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('head')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -81,7 +83,19 @@
                 <div class="card-header">Users</div>
 
                 <div class="card-body">
-                   content
+                   {{-- table.table>(thead>tr>th*5)+tbody --}}
+                   <table class="table" id="usertbl">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role(s)</th>
+                            <th>Permission(s)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                   </table>
                 </div>
             </div>
         </div>
@@ -142,10 +156,6 @@
     </div>
 </div>
 
-<!-- Button trigger modal -->
-
-
-<!-- Modal -->
 <div class="modal fade" id="assignPermission-mdl" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -175,9 +185,9 @@
 </div>
 @endsection
 @section('script')
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script>
     var clickedAssignBtn;
-    // $('#assignPermission-mdl').on('show.bs.modal', function (event) {
     $(document).on('click','.assignPermissionBtn',function(){
         var button = $(this);
         clickedAssignBtn = button;
@@ -220,6 +230,24 @@
                 });
             }
         });
+    });
+
+    var usertbl = $('#usertbl').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax":{
+            "method": 'post',
+            "url": "{{ route('user.ajaxloadusers') }}",
+            "dataType": "json",
+            "data":{ _token: "{{csrf_token()}}"}
+        },
+        "columns": [
+            { "data": "name" },
+            { "data": "email" },
+            { "data": "role" },
+            { "data": "permission" },
+            { "data": "action" }
+        ]
     });
 </script>
 @endsection

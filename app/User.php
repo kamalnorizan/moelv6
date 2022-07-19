@@ -78,4 +78,14 @@ class User extends Authenticatable
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    /**
+     * Get all of the tidakhadir for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tidakhadir()
+    {
+        return $this->hasMany(StudentHoliday::class, 'student_id', 'id');
+    }
 }

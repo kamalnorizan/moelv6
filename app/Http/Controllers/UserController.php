@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Laravel\Passport\Token as ClientToken;
 use Auth;
+use DataTables;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 class UserController extends Controller
@@ -16,6 +17,35 @@ class UserController extends Controller
         $permissions = Permission::all();
 
         return view('users.index',compact('roles','permissions'));
+    }
+
+    public function ajaxloadusers(Request $request)
+    {
+        $users = User::with('roles','permissions');
+
+        return Datatables::of($users)
+            ->addIndexColumn()
+            ->addColumn('role', function (User $user){
+                $roles ='';
+                foreach($user->roles as $role){
+                    $roles.='<span class="badge badge-primary">'.$role->name.'</span> ';
+                }
+
+                return $roles;
+            })
+            ->addColumn('permission', function(User $user){
+                $permissions ='';
+                foreach($user->permissions as $permission){
+                    $permissions.='<span class="badge badge-warning">'.$permission->name.'</span> ';
+                }
+
+                return $permissions;
+            })
+            ->addColumn('action', function(User $user){
+                return 'Action';
+            })
+            ->rawColumns(['role','permission','action'])
+            ->make(true);
     }
 
     public function rolesStore (Request $request)
