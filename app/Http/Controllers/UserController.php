@@ -29,7 +29,7 @@ class UserController extends Controller
             ->addColumn('role', function (User $user){
                 $roles ='';
                 foreach($user->roles as $role){
-                    $roles.='<span class="badge badge-primary">'.$role->name.'</span> ';
+                    $roles.='<button class="badge badge-primary removerole" data-roleid="'.$role->name.'" data-type="role" data-userid="'.$user->id.'">'.$role->name.'</button> ';
                 }
 
                 return $roles;
@@ -37,7 +37,7 @@ class UserController extends Controller
             ->addColumn('permission', function(User $user){
                 $permissions ='';
                 foreach($user->permissions as $permission){
-                    $permissions.='<span class="badge badge-warning">'.$permission->name.'</span> ';
+                    $permissions.='<button class="badge badge-warning removerole" data-roleid="'.$permission->name.'" data-type="permission" data-userid="'.$user->id.'">'.$permission->name.'</button> ';
                 }
 
                 return $permissions;
@@ -80,6 +80,18 @@ class UserController extends Controller
             $user->assignRole($request->roleid);
         }else{
             $user->givePermissionTo($request->roleid);
+        }
+
+        return response()->json(['status'=>'success']);
+    }
+
+    public function removerole(Request $request)
+    {
+        $user = User::find($request->userid);
+        if($request->type=='role'){
+            $user->removeRole($request->roleid);
+        }else{
+            $user->revokePermissionTo($request->roleid);
         }
 
         return response()->json(['status'=>'success']);

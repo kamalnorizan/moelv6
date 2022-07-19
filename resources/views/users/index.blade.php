@@ -283,5 +283,51 @@
         });
     });
 
+    $(document).on('click','.removerole',function(){
+        var userid = $(this).attr('data-userid');
+        var roleid = $(this).attr('data-roleid');
+        var type = $(this).attr('data-type');
+        swal({
+            title: "Are you sure?",
+            text: "Lorem ipsum!",
+            icon: "warning",
+            buttons: {cancel: {
+                text: "Cancel",
+                value: null,
+                visible: true,
+                className: "",
+                closeModal: true,
+            },
+            confirm: {
+                text: "Yes, i'm sure!",
+                value: true,
+                visible: true,
+                className: "btn-danger",
+                closeModal: true
+            }}
+        }).then((value)=>{
+            // alert(value);
+            if(value==true){
+                $.ajax({
+                    type: "post",
+                    url: "{{route('user.removerole')}}",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        userid: userid,
+                        roleid: roleid,
+                        type: type
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        swal("Deleted!", "Lorem", "success");
+                        usertbl.ajax.reload();
+                    }
+                });
+
+            }
+        });
+
+    });
+
 </script>
 @endsection
