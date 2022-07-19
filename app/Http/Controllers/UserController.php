@@ -22,7 +22,7 @@ class UserController extends Controller
     public function ajaxloadusers(Request $request)
     {
         $users = User::with('roles','permissions');
-
+        $roles = Role::all();
         return Datatables::of($users)
             ->addIndexColumn()
             ->addColumn('role', function (User $user){
@@ -41,8 +41,18 @@ class UserController extends Controller
 
                 return $permissions;
             })
-            ->addColumn('action', function(User $user){
-                return 'Action';
+            ->addColumn('action', function(User $user) use ($roles){
+                $roleBtns='';
+                foreach ($roles as $key => $role) {
+                    $roleBtns.='<a type="button" class="dropdown-item assignRoleBtn">'.$role->name.'</a>';
+                }
+
+                $button = '<div class="dropdown">'.
+                    '<button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'.
+                    $roleBtns.
+                    '</div>'.
+                '</div>';
+                return $button;
             })
             ->rawColumns(['role','permission','action'])
             ->make(true);
