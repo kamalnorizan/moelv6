@@ -284,6 +284,7 @@
     });
 
     $(document).on('click','.removerole',function(){
+        var button = $(this);
         var userid = $(this).attr('data-userid');
         var roleid = $(this).attr('data-roleid');
         var type = $(this).attr('data-type');
@@ -306,7 +307,6 @@
                 closeModal: true
             }}
         }).then((value)=>{
-            // alert(value);
             if(value==true){
                 $.ajax({
                     type: "post",
@@ -320,7 +320,8 @@
                     dataType: "json",
                     success: function (response) {
                         swal("Deleted!", "Lorem", "success");
-                        usertbl.ajax.reload();
+                        $(button).remove();
+                        // usertbl.ajax.reload();
                     }
                 });
 
