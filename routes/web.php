@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     //users
     Route::get('users', 'UserController@index')->name('user.index');
     Route::post('users/ajaxloadusers','UserController@ajaxloadusers')->name('user.ajaxloadusers');
+    Route::post('users/assignrole','UserController@assignrole')->name('user.assignrole');
 
     //users.role
     Route::post('users/roles/store','UserController@rolesStore')->name('user.role.store');

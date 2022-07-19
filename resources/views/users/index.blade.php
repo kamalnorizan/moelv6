@@ -249,5 +249,24 @@
             { "data": "action" }
         ]
     });
+    $(document).on('click','.assignRoleBtn',function(){
+        var userid = $(this).attr('data-userid');
+        var roleid = $(this).attr('data-roleid');
+        $.ajax({
+            type: "post",
+            url: "{{route('user.assignrole')}}",
+            data: {
+                _token: '{{ csrf_token() }}',
+                userid: userid,
+                roleid: roleid
+            },
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+                usertbl.ajax.reload();
+            }
+        });
+    });
+
 </script>
 @endsection

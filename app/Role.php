@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class RoleV2 extends Model
 {
     public $timestamps = true;
 
