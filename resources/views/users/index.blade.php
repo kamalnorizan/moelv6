@@ -59,9 +59,18 @@
             <div class="card">
                 <div class="card-header">
                     Permissions
+                    {{-- @can('Add Permission') --}}
+                    {{-- @canany(['Add Permission','Users Module']) --}}
+                    {{-- @cannot('Users Module') --}}
+                    @if (Auth::user()->can('Delete User') || Auth::user()->roles->where('name','Cikgu')->first())
+
                     <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#createPermission-mdl">
                         Add Permission
                     </button>
+                    @endif
+                    {{-- @endcannot --}}
+                    {{-- @endcanany --}}
+                    {{-- @endcan --}}
                 </div>
 
                 <div class="card-body">
