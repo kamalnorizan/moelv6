@@ -23,6 +23,7 @@ class UserController extends Controller
     {
         $users = User::with('roles','permissions');
         $roles = Role::all();
+        $permissions = Permission::all();
         return Datatables::of($users)
             ->addIndexColumn()
             ->addColumn('role', function (User $user){
@@ -41,16 +42,22 @@ class UserController extends Controller
 
                 return $permissions;
             })
-            ->addColumn('action', function(User $user) use ($roles){
+            ->addColumn('action', function(User $user) use ($roles, $permissions){
                 $roleBtns='';
                 foreach ($roles as $key => $role) {
-                    $roleBtns.='<a type="button" class="dropdown-item assignRoleBtn" data-userid="'.$user->id.'" data-roleid="'.$role->name.'" >'.$role->name.'</a>';
+                    $roleBtns.='<a type="button" class="dropdown-item assignRoleBtn" data-userid="'.$user->id.'" data-type="role" data-roleid="'.$role->name.'" >'.$role->name.'</a>';
+                }
+
+                $permissionBtns='';
+                foreach ($permissions as $key => $permission) {
+                    $permissionBtns.='<a type="button" class="dropdown-item assignRoleBtn" data-userid="'.$user->id.'" data-type="permission" data-roleid="'.$permission->name.'" >'.$permission->name.'</a>';
                 }
 
                 $button = '<div class="dropdown">'.
                     '<button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'.
                     $roleBtns.
                     '<div class="dropdown-divider"></div>'.
+                    $permissionBtns.
                     '</div>'.
                 '</div>';
                 return $button;
@@ -69,7 +76,11 @@ class UserController extends Controller
     public function assignrole(Request $request)
     {
         $user = User::find($request->userid);
-        $user->assignRole($request->roleid);
+        if($request->type=='role'){
+            $user->assignRole($request->roleid);
+        }else{
+            $user->givePermissionTo($request->roleid);
+        }
 
         return response()->json(['status'=>'success']);
     }

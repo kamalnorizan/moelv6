@@ -53,6 +53,8 @@
                 </div>
             </div>
         </div>
+        {{-- @role('Cikgu') --}}
+        @can('Posts Module')
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
@@ -78,6 +80,8 @@
                 </div>
             </div>
         </div>
+        @endcan
+        {{-- @endrole --}}
         <div class="col-md-12 mt-2">
             <div class="card">
                 <div class="card-header">Users</div>
@@ -249,20 +253,22 @@
             { "data": "action" }
         ]
     });
+
     $(document).on('click','.assignRoleBtn',function(){
         var userid = $(this).attr('data-userid');
         var roleid = $(this).attr('data-roleid');
+        var type = $(this).attr('data-type');
         $.ajax({
             type: "post",
             url: "{{route('user.assignrole')}}",
             data: {
                 _token: '{{ csrf_token() }}',
                 userid: userid,
-                roleid: roleid
+                roleid: roleid,
+                type: type
             },
             dataType: "json",
             success: function (response) {
-                // console.log(response);
                 usertbl.ajax.reload();
             }
         });
