@@ -10,11 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-app/Takwim_sekolah.php
-app/Http/Controllers/TakwimSekolahController.php
-database/factories/TakwimSekolahFactory.php
-database/migrations/2022_07_18_053121_create_takwim_sekolahs_table.php
-database/seeds/TakwimSekolahSeeder.php
-resources/views/takwim/index.blade.php
-app/StudentHoliday.php
-database/migrations/2022_07_19_044824_create_student_holidays.php
+
